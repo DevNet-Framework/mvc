@@ -1,0 +1,17 @@
+{
+    "name": "devnet/web-project",
+    "description": "DevNet MVC Web Application Project",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mohammed Moussaoui",
+            "email": "m.moussaoui@outlook.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.4.0",
+        "devnet/web": "dev-master"
+    }
+}
