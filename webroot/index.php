@@ -10,26 +10,32 @@ if (file_exists($autoloadPath))
 {
     require $autoloadPath;
 }
-else
+
+$project = new SimpleXMLElement("<project></project>");
+
+if (file_exists($projectPath))
 {
-    $project = new SimpleXMLElement("<project></project>");
+    $project = simplexml_load_file($projectPath);
+}
 
-    if (file_exists($projectPath))
+if (!file_exists((string)$project->autoload->path."/autoload.php"))
+{
+    $path = dirname(exec("devnet --path"));
+    
+    if (!empty($path))
     {
-        $project = simplexml_load_file($projectPath);
-    }
-
-    if (!file_exists((string)$project->autoload->path."/autoload.php"))
-    {
-        $project->autoload->path = dirname(exec("devnet --path"));
+        $project->autoload->path = $path;
         $dom                     = new DOMDocument();
         $dom->preserveWhiteSpace = false;
         $dom->formatOutput       = true;
-        
+
         $dom->loadXML($project->asXML());
         $dom->save($projectPath);
     }
+}
 
+if (file_exists((string)$project->autoload->path."/autoload.php"))
+{
     require (string)$project->autoload->path."/autoload.php";
 }
 
