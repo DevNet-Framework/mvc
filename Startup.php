@@ -38,7 +38,7 @@ class Startup
         
         $app->useEndpoint(function($routes)
         {
-            $routes->mapRoute("default", "{controller=Home}/{action=index}/{id?}");
+            $routes->mapRoute("default", "{controller=Home}/{action=Index}/{id?}");
         });
     }
 }
