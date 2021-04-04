@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-use Artister\System\Boot\launcher;
+use DevNet\System\Boot\launcher;
 use Application\Program;
 
 $autoloadPath = __DIR__ . "/../vendor/autoload.php";

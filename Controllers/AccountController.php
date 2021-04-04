@@ -2,13 +2,13 @@
 
 namespace Application\Controllers;
 
-use Artister\Web\Mvc\Controller;
-use Artister\Web\Mvc\IActionResult;
-use Artister\Web\Mvc\Filters\AuthorizeFilter;
-use Artister\Web\Security\ClaimsPrincipal;
-use Artister\Web\Security\ClaimsIdentity;
-use Artister\Web\Security\ClaimType;
-use Artister\Web\Security\Claim;
+use DevNet\Web\Mvc\Controller;
+use DevNet\Web\Mvc\IActionResult;
+use DevNet\Web\Mvc\Filters\AuthorizeFilter;
+use DevNet\Web\Security\ClaimsPrincipal;
+use DevNet\Web\Security\ClaimsIdentity;
+use DevNet\Web\Security\ClaimType;
+use DevNet\Web\Security\Claim;
 use Application\Models\LoginForm;
 
 class AccountController extends Controller

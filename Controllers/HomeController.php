@@ -2,8 +2,8 @@
 
 namespace Application\Controllers;
 
-use Artister\Web\Mvc\Controller;
-use Artister\Web\Mvc\IActionResult;
+use DevNet\Web\Mvc\Controller;
+use DevNet\Web\Mvc\IActionResult;
 
 class HomeController extends Controller
 {
