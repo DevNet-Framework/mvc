@@ -6,11 +6,6 @@ use Application\Program;
 $autoloadPath = __DIR__ . "/../vendor/autoload.php";
 $projectPath  = "../project.phproj";
 
-if (file_exists($autoloadPath))
-{
-    require $autoloadPath;
-}
-
 $project = new SimpleXMLElement("<project></project>");
 
 if (file_exists($projectPath))
@@ -37,6 +32,11 @@ if (!file_exists((string)$project->autoload->path."/autoload.php"))
 if (file_exists((string)$project->autoload->path."/autoload.php"))
 {
     require (string)$project->autoload->path."/autoload.php";
+}
+
+if (file_exists($autoloadPath))
+{
+    require $autoloadPath;
 }
 
 $launcher = launcher::getLauncher();
