@@ -9,9 +9,10 @@
             "email": "m.moussaoui@outlook.com"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
         "php": ">=7.4.0",
         "devnet/web": "dev-master"
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
