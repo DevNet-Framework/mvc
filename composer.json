@@ -11,7 +11,7 @@
     ],
     "require": {
         "php": ">=7.4.0",
-        "devnet/web": "dev-master"
+        "devnet/web": "1.0.*"
     },
     "minimum-stability": "dev",
     "prefer-stable": true
