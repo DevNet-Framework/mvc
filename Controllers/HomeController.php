@@ -13,7 +13,12 @@ class HomeController extends Controller
         return $this->view();
     }
 
-    public function error()
+    public function about() : IActionResult
+    {
+        return $this->view();
+    }
+
+    public function error() : IActionResult
     {
         $error = new Exception("Sorry! Looks like this page doesn't exist.", 404);
         if($this->HttpContext->Error)
