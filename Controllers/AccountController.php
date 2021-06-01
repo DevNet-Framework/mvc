@@ -34,9 +34,9 @@ class AccountController extends Controller
     public function index() : IActionResult
     {
         $user = $this->HttpContext->User;
-        $emailClaim = $user->findClaim(fn($claim) => $claim->Type == "Email");
-        $email = $emailClaim ? $emailClaim->Value : null;
-        $this->ViewData['Email'] = $email;
+        $claim = $user->findClaim(fn($claim) => $claim->Type == ClaimType::Name);
+        $name = $claim ? $claim->Value : null;
+        $this->ViewData['Name'] = $name;
         return $this->view();
     }
 
