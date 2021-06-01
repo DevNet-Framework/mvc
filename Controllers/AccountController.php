@@ -54,6 +54,11 @@ class AccountController extends Controller
             return $this->view();
         }
 
+        if (!file_exists(__DIR__.'/../data.json'))
+        {
+            return $this->view();
+        }
+
         $json = file_get_contents(__DIR__.'/../data.json');
         $data = json_decode($json);
 
