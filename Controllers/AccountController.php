@@ -27,6 +27,8 @@ class AccountController extends Controller
     public function __construct()
     {
         $this->filter('index', AuthorizeFilter::class);
+        $this->filter('login', AntiForgeryFilter::class);
+        $this->filter('register', AntiForgeryFilter::class);
     }
 
     public function index() : IActionResult

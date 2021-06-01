@@ -21,6 +21,8 @@ class Startup
     {
         $services->addMvc();
         
+        $services->addAntiforgery();
+        
         $services->addAuthentication();
 
         $services->addAuthorisation();
