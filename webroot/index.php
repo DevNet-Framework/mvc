@@ -3,40 +3,29 @@
 use DevNet\System\Runtime\launcher;
 use Application\Program;
 
-$autoloadPath = __DIR__ . "/../vendor/autoload.php";
-$projectPath  = "../project.phproj";
-
-$project = new SimpleXMLElement("<project></project>");
-
-if (file_exists($projectPath))
+if (PHP_OS_FAMILY == 'Windows')
 {
-    $project = simplexml_load_file($projectPath);
+    $path = getenv('path');
+    $paths = explode(';', $path);
+}
+else
+{
+    $path = getenv('PATH');
+    $paths = explode(':', $path);
 }
 
-if (!file_exists((string)$project->autoload->path."/autoload.php"))
+foreach ($paths as $path)
 {
-    $path = dirname(exec("devnet --path"));
-    
-    if (!empty($path))
+    if (file_exists($path.'/../autoload.php'))
     {
-        $project->autoload->path = $path;
-        $dom                     = new DOMDocument();
-        $dom->preserveWhiteSpace = false;
-        $dom->formatOutput       = true;
-
-        $dom->loadXML($project->asXML());
-        $dom->save($projectPath);
+        require $path.'/../autoload.php';
+        break;
     }
 }
 
-if (file_exists((string)$project->autoload->path."/autoload.php"))
+if (file_exists(__DIR__ . "/../vendor/autoload.php"))
 {
-    require (string)$project->autoload->path."/autoload.php";
-}
-
-if (file_exists($autoloadPath))
-{
-    require $autoloadPath;
+    require __DIR__ . "/../vendor/autoload.php";
 }
 
 $launcher = launcher::getLauncher();
