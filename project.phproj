@@ -4,7 +4,4 @@
     <namespace>Application</namespace>
     <entrypoint>Program</entrypoint>
   </properties>
-  <autoload>
-    <path>C:\Users\intellectec\AppData\Roaming\Composer\vendor</path>
-  </autoload>
 </project>

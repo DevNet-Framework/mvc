@@ -30,7 +30,14 @@ class Startup
 
     public function configure(IApplicationBuilder $app)
     {
-        $app->UseExceptionHandler();
+        if ($this->Configuration->getValue('environment') == 'development')
+        {
+            $app->UseExceptionHandler();
+        }
+        else
+        {
+            $app->UseExceptionHandler("/home/error");
+        }
 
         $app->useRouter();
 
