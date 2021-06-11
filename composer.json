@@ -1,7 +1,7 @@
 {
     "name": "devnet/mvc-project",
     "description": "DevNet MVC Web Application Project",
-    "type": "project",
+    "type": "devnet-template",
     "license": "MIT",
     "authors": [
         {
