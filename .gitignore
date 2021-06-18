@@ -3,3 +3,4 @@
 /test/
 /vendor/
 data.json
+composer.lock
