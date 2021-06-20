@@ -5,14 +5,14 @@ namespace Application\Controllers;
 use DevNet\System\Linq;
 use DevNet\System\Type;
 use DevNet\System\Collections\ArrayList;
-use DevNet\Web\Mvc\Controller;
-use DevNet\Web\Mvc\IActionResult;
-use DevNet\Web\Mvc\Filters\AuthorizeFilter;
-use DevNet\Web\Mvc\Filters\AntiForgeryFilter;
-use DevNet\Web\Security\ClaimsPrincipal;
-use DevNet\Web\Security\ClaimsIdentity;
-use DevNet\Web\Security\ClaimType;
-use DevNet\Web\Security\Claim;
+use DevNet\Core\Controller\AbstractController;
+use DevNet\Core\Controller\IActionResult;
+use DevNet\Core\Controller\Filters\AuthorizeFilter;
+use DevNet\Core\Controller\Filters\AntiForgeryFilter;
+use DevNet\Core\Security\ClaimsPrincipal;
+use DevNet\Core\Security\ClaimsIdentity;
+use DevNet\Core\Security\ClaimType;
+use DevNet\Core\Security\Claim;
 use Application\Models\LoginForm;
 use Application\Models\RegisterForm;
 use Application\Models\User;
@@ -22,7 +22,7 @@ use Application\Models\User;
  * This example dosen't encrypt your data, so it's not recommanded for production,
  * Use DevNet Identity Manager instead, or encrypt you own data.
  */
-class AccountController extends Controller
+class AccountController extends AbstractController
 {
     public function __construct()
     {

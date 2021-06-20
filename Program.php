@@ -2,8 +2,8 @@
 
 namespace Application;
 
-use DevNet\Web\Hosting\WebHost;
-use DevNet\Web\Hosting\IWebHostBuilder;
+use DevNet\Core\Hosting\WebHost;
+use DevNet\Core\Hosting\IWebHostBuilder;
 
 class Program
 {
