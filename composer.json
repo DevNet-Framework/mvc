@@ -1,5 +1,5 @@
 {
-    "name": "devnet/mvc-project",
+    "name": "devnet/mvc",
     "description": "DevNet MVC Web Application Project",
     "type": "devnet-template",
     "license": "MIT",
@@ -11,7 +11,7 @@
     ],
     "require": {
         "php": ">=7.4.0",
-        "devnet/web": "1.0.*"
+        "devnet/core": "1.0.*"
     },
     "minimum-stability": "dev",
     "prefer-stable": true
