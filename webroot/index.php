@@ -1,7 +1,11 @@
 <?php declare(strict_types = 1);
 
 use DevNet\System\Runtime\launcher;
-use Application\Program;
+
+$projectFile = simplexml_load_file(__DIR__."/../project.phproj");
+$namespace   = $projectFile->properties->namespace;
+$entrypoint  = $projectFile->properties->entrypoint;
+$packages    = $projectFile->dependencies->package ?? [];
 
 if (PHP_OS_FAMILY == 'Windows')
 {
@@ -23,12 +27,17 @@ foreach ($paths as $path)
     }
 }
 
-if (file_exists(__DIR__ . "/../vendor/autoload.php"))
+foreach ($packages as $package)
 {
-    require __DIR__ . "/../vendor/autoload.php";
+    $include = (string)$package->attributes()->include;
+    if (file_exists(__DIR__ .'/../'.$include))
+    {
+        require __DIR__ .'/../'.$include;
+    }
 }
 
 $launcher = launcher::getLauncher();
 $launcher->workspace(dirname(__DIR__));
-$launcher->entryPoint(Program::class);
+$launcher->namespace((string)$namespace);
+$launcher->entryPoint((string)$entrypoint);
 $launcher->launch();
