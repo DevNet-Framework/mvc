@@ -1,6 +1,6 @@
 {
     "name": "devnet/mvc",
-    "description": "DevNet MVC Web Application Project",
+    "description": "DevNet Web Application (Model-View-Controller)",
     "type": "devnet-template",
     "license": "MIT",
     "minimum-stability": "dev",
