@@ -1,4 +1,4 @@
-# DevNet MVC Template
+# DevNet MVC Web Application Template
 This package is a Model-View-Controller web application template of DevNet Framewark.
 
 ## Requirements
@@ -8,7 +8,7 @@ This package is a Model-View-Controller web application template of DevNet Frame
 ## Installation
 To create DevNet MVC Web Application, run the following command in your terminal:
 ```
-composer create-project devnet/web YourProjectName
+composer create-project devnet/mvc YourProjectName
 ```
 Or using DevNet CLI
 ```
