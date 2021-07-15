@@ -1,29 +1,48 @@
 <?= $this->layout('Shared/Layout') ?>
 
-<br>
-<div class="card mx-auto p-4 shadow" style="max-width: 400px">
-   <div class="card-body">
-      <form method="post" action="/account/register">
-         <h2 class="text-center text-info">Register</h2>
-         <div class="mb-3">
-            <label for="InputName" class="form-label">Full name</label>
-            <input type="text" class="form-control" id="InputName" name="Name" required>
-         </div>
-         <div class="mb-3">
-            <label for="InputEmail" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="InputEmail" name="Email" required>
-         </div>
-         <div class="mb-3">
-            <label for="InputPassword" class="form-label">Password</label>
-            <input type="password" class="form-control" id="InputPassword" name="Password" pattern="^(?=.*?[A-Z])(?=.*?[0-9]).{8,}$" required>
-            <div class="text-center">
-               <small class="text-muted">At least 8 characters, 1 capital letter and 1 digit</small>
+<div class="container d-flex flex-column justify-content-center" style="height: 500px;">
+   <?php if ($this->ViewData['success']) : ?>
+      <div class="alert alert-secondary bg-white mx-auto shadow text-center" role="alert" style="max-width: 600px">
+         <header class="d-flex flex-row">
+            <div class="flex-grow-1">
+               <h4 class="text-info">Registration Successful</h4>
             </div>
+            <div>
+               <a class="btn btn-close" aria-label="Close" href="/account/register"></a>
+            </div>
+         </header>
+         <hr>
+         <p>
+            Your account has been successfully created, You may now sign in with your Username and Paswword.
+         </p>
+         <a class="btn btn-info text-white" href="/account/login">Sign In</a>
+      </div>
+   <?php else : ?>
+      <div class="card mx-auto p-4 shadow" style="max-width: 400px">
+         <div class="card-body">
+            <form method="post" action="/account/register">
+               <h2 class="text-center text-info">Register</h2>
+               <div class="mb-3">
+                  <label for="InputName" class="form-label">Full name</label>
+                  <input type="text" class="form-control" id="InputName" name="Name" required>
+               </div>
+               <div class="mb-3">
+                  <label for="InputEmail" class="form-label">Email address</label>
+                  <input type="email" class="form-control" id="InputEmail" name="Email" required>
+               </div>
+               <div class="mb-3">
+                  <label for="InputPassword" class="form-label">Password</label>
+                  <input type="password" class="form-control" id="InputPassword" name="Password" pattern="^(?=.*?[A-Z])(?=.*?[0-9]).{8,}$" required>
+                  <div class="text-center">
+                     <small class="text-muted">At least 8 characters, 1 capital letter and 1 digit</small>
+                  </div>
+               </div>
+               <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-info text-white">Register</button>
+               </div>
+               <?= $this->Html->AntiforgeryToken() ?>
+            </form>
          </div>
-         <div class="d-grid gap-2">
-            <button type="submit" class="btn btn-info text-white">Register</button>
-         </div>
-         <?= $this->Html->AntiforgeryToken() ?>
-      </form>
-  </div>
+      </div>
+   <?php endif ?>
 </div>

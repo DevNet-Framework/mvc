@@ -31,49 +31,44 @@ class AccountController extends AbstractController
         $this->filter('register', AntiForgeryFilter::class);
     }
 
-    public function index() : IActionResult
+    public function index(): IActionResult
     {
         $user = $this->HttpContext->User;
-        $claim = $user->findClaim(fn($claim) => $claim->Type == ClaimType::Name);
+        $claim = $user->findClaim(fn ($claim) => $claim->Type == ClaimType::Name);
         $name = $claim ? $claim->Value : null;
         $this->ViewData['Name'] = $name;
         return $this->view();
     }
 
-    public function login(LoginForm $form) : IActionResult
+    public function login(LoginForm $form): IActionResult
     {
         $user = $this->HttpContext->User;
 
-        if ($user->isAuthenticated())
-        {
+        if ($user->isAuthenticated()) {
             return $this->redirect('/account/index');
         }
 
-        if (!$form->isValide())
-        {
+        if (!$form->isValide()) {
             return $this->view();
         }
 
-        if (!file_exists(__DIR__.'/../data.json'))
-        {
+        if (!file_exists(__DIR__ . '/../data.json')) {
             return $this->view();
         }
 
-        $json = file_get_contents(__DIR__.'/../data.json');
+        $json = file_get_contents(__DIR__ . '/../data.json');
         $data = json_decode($json);
 
         $users = new ArrayList(Type::Object);
         $users->addrange($data);
 
-        $user = $users->where(fn($user) => $user->Username == $form->Username)->first();
+        $user = $users->where(fn ($user) => $user->Username == $form->Username)->first();
 
-        if (!$user)
-        {
+        if (!$user) {
             return $this->view();
         }
 
-        if ($user->Password != $form->Password)
-        {
+        if ($user->Password != $form->Password) {
             return $this->view();
         }
 
@@ -88,17 +83,16 @@ class AccountController extends AbstractController
         return $this->redirect('/account/index');
     }
 
-    public function register(RegisterForm $form) : IActionResult
+    public function register(RegisterForm $form): IActionResult
     {
-        if (!$form->isValide())
-        {
+        $this->ViewData['success'] = false;
+        if (!$form->isValide()) {
             return $this->view();
         }
 
         $data = [];
-        if (file_exists(__DIR__.'/../data.json'))
-        {
-            $json = file_get_contents(__DIR__.'/../data.json');
+        if (file_exists(__DIR__ . '/../data.json')) {
+            $json = file_get_contents(__DIR__ . '/../data.json');
             $data = json_decode($json, true);
         }
 
@@ -108,13 +102,14 @@ class AccountController extends AbstractController
         $user->Password = $form->Password;
 
         $data[] = $user;
-        $json   = json_encode($data, JSON_PRETTY_PRINT);
-        file_put_contents(__DIR__.'/../data.json', $json);
+        $json = json_encode($data, JSON_PRETTY_PRINT);
+        file_put_contents(__DIR__ . '/../data.json', $json);
 
-        return $this->content("User {$user->Name} was created successfully, try to login to your account");
+        $this->ViewData['success'] = true;
+        return $this->view();
     }
 
-    public function logout() : IActionResult
+    public function logout(): IActionResult
     {
         $authentication = $this->HttpContext->Authentication;
         $authentication->SignOut();
