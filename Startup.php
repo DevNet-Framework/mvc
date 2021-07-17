@@ -20,9 +20,9 @@ class Startup
     public function configureServices(IServiceCollection $services)
     {
         $services->addMvc();
-        
+
         $services->addAntiforgery();
-        
+
         $services->addAuthentication();
 
         $services->addAuthorisation();
@@ -30,12 +30,9 @@ class Startup
 
     public function configure(IApplicationBuilder $app)
     {
-        if ($this->Configuration->getValue('environment') == 'development')
-        {
+        if ($this->Configuration->getValue('environment') == 'development') {
             $app->UseExceptionHandler();
-        }
-        else
-        {
+        } else {
             $app->UseExceptionHandler("/home/error");
         }
 
@@ -44,9 +41,8 @@ class Startup
         $app->useAuthentication();
 
         $app->useAuthorization();
-        
-        $app->useEndpoint(function($routes)
-        {
+
+        $app->useEndpoint(function ($routes) {
             $routes->mapRoute("default", "{controller=Home}/{action=Index}/{id?}");
         });
     }

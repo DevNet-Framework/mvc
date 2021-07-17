@@ -12,7 +12,7 @@ class Program
         self::createWebHostBuilder($args)->build()->run();
     }
 
-    public static function createWebHostBuilder(array $args) : IWebHostBuilder
+    public static function createWebHostBuilder(array $args): IWebHostBuilder
     {
         return WebHost::createBuilder($args)
             ->useStartup(Startup::class);

@@ -7,23 +7,21 @@ use DevNet\Core\Controller\IActionResult;
 
 class HomeController extends AbstractController
 {
-    public function index() : IActionResult
+    public function index(): IActionResult
     {
         return $this->view();
     }
 
-    public function about() : IActionResult
+    public function about(): IActionResult
     {
         return $this->view();
     }
 
-    public function error() : IActionResult
+    public function error(): IActionResult
     {
         $error = new \Exception("Sorry! Looks like this page doesn't exist.", 404);
-        if($this->HttpContext->Error)
-        {
-            switch ($this->HttpContext->Error->getCode())
-            {
+        if ($this->HttpContext->Error) {
+            switch ($this->HttpContext->Error->getCode()) {
                 case 404:
                     break;
                 case 403:

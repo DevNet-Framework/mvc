@@ -15,13 +15,12 @@ class RegisterForm
 
     public function __set(string $name, $value)
     {
-         $this->$name = $value;
+        $this->$name = $value;
     }
 
-    public function isValide() : bool
+    public function isValide(): bool
     {
-        if (empty($this->Name) || empty($this->Email) || empty($this->Password))
-        {
+        if (empty($this->Name) || empty($this->Email) || empty($this->Password)) {
             return false;
         }
 

@@ -15,13 +15,12 @@ class LoginForm
 
     public function __set(string $name, $value)
     {
-         $this->$name = $value;
+        $this->$name = $value;
     }
 
-    public function isValide() : bool
+    public function isValide(): bool
     {
-        if (empty($this->Username) || empty($this->Password))
-        {
+        if (empty($this->Username) || empty($this->Password)) {
             return false;
         }
 
