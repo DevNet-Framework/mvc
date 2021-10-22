@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 use DevNet\System\Runtime\launcher;
 
 $projectFile = simplexml_load_file(__DIR__ . "/../project.phproj");
