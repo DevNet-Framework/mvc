@@ -4,7 +4,7 @@ namespace Application;
 
 use DevNet\Core\Configuration\IConfiguration;
 use DevNet\Core\Dependency\IServiceCollection;
-use DevNet\Core\Dispatcher\IApplicationBuilder;
+use DevNet\Core\Middleware\IApplicationBuilder;
 use DevNet\Core\Extensions\ServiceCollectionExtensions;
 use DevNet\Core\Extensions\ApplicationBuilderExtensions;
 
