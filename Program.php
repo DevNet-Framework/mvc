@@ -2,19 +2,40 @@
 
 namespace Application;
 
+use DevNet\Core\Extensions\ApplicationBuilderExtensions;
+use DevNet\Core\Extensions\ServiceCollectionExtensions;
 use DevNet\Core\Hosting\WebHost;
-use DevNet\Core\Hosting\IWebHostBuilder;
 
 class Program
 {
     public static function main(array $args = [])
     {
-        self::createWebHostBuilder($args)->build()->run();
-    }
+        $builder = WebHost::createDefaultBuilder($args);
+        $configuration = $builder->ConfigBuilder->build();
 
-    public static function createWebHostBuilder(array $args): IWebHostBuilder
-    {
-        return WebHost::createBuilder($args)
-            ->useStartup(Startup::class);
+        $builder->configureServices(function ($services) {
+            $services->addMvc();
+            $services->addAntiforgery();
+            $services->addAuthentication();
+            $services->addAuthorisation();
+        });
+
+        $host = $builder->build();
+
+        $host->start(function ($app) use ($configuration) {
+            if ($configuration->getValue('environment') == 'development') {
+                $app->UseExceptionHandler();
+            } else {
+                $app->UseExceptionHandler("/home/error");
+            }
+
+            $app->useRouter();
+            $app->useAuthentication();
+            $app->useAuthorization();
+
+            $app->useEndpoint(function ($routes) {
+                $routes->mapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+            });
+        });
     }
 }
