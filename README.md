@@ -6,13 +6,13 @@ This package is a Model-View-Controller web application template of DevNet Frame
 - Composer the dependency manager from [getcomposer.org](https://getcomposer.org/)
 
 ## Installation
-To create DevNet MVC Web Application, run the following command in your terminal:
+To create a DevNet Web MVC Application project using composer, run the following command in your terminal:
 ```
-composer create-project devnet/mvc YourProjectName
+composer create-project devnet/mvc-template [project-Name]
 ```
 Or using DevNet CLI
 ```
-devnet new mvc --project YourProjectName
+devnet new mvc --project [project-Name]
 ```
 
 ## Documentation

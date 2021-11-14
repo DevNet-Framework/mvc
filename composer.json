@@ -1,5 +1,5 @@
 {
-    "name": "devnet/mvc",
+    "name": "devnet/mvc-template",
     "description": "DevNet Web Application (Model-View-Controller)",
     "type": "devnet-template",
     "license": "MIT",
@@ -7,6 +7,6 @@
     "prefer-stable": true,
     "require": {
         "php": ">=7.4.0",
-        "devnet/core": "1.0.*"
+        "devnet/web": "1.0.*"
     }
 }
