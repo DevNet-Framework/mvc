@@ -1,6 +1,6 @@
 <?php
 
-use DevNet\System\Loader\launcher;
+use DevNet\System\Runtime\launcher;
 
 $projectFile = simplexml_load_file(__DIR__ . "/../project.phproj");
 $namespace   = $projectFile->properties->namespace;
