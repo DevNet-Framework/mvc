@@ -1,7 +1,7 @@
-<?= $this->layout('Shared/layout') ?>
+<? $this->layout('Shared/layout') ?>
 
 <div class="container d-flex flex-row align-items-center justify-content-center" style="height: 500px;">
-   <?php if ($this->ViewData['success']) : ?>
+   <? if ($this->ViewData['success']) : ?>
       <div class="alert alert-secondary bg-white mx-auto shadow text-center" role="alert" style="max-width: 600px">
          <header class="d-flex flex-row">
             <div class="flex-grow-1">
@@ -17,7 +17,7 @@
          </p>
          <a class="btn btn-info text-white" href="/account/login">Sign In</a>
       </div>
-   <?php else : ?>
+   <? else : ?>
       <div class="card flex-grow-1 p-4 shadow" style="max-width: 400px">
          <div class="card-body">
             <form method="post" action="/account/register">
@@ -44,5 +44,5 @@
             </form>
          </div>
       </div>
-   <?php endif ?>
+   <? endif ?>
 </div>
