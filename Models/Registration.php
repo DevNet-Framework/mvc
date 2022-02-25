@@ -2,7 +2,7 @@
 
 namespace Application\Models;
 
-class RegisterForm
+class Registration
 {
     public string $Name;
     public string $Email;

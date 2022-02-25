@@ -14,7 +14,7 @@ use DevNet\Web\Security\ClaimsIdentity;
 use DevNet\Web\Security\ClaimType;
 use DevNet\Web\Security\Claim;
 use Application\Models\LoginForm;
-use Application\Models\RegisterForm;
+use Application\Models\Registration;
 use Application\Models\User;
 
 /**
@@ -83,7 +83,7 @@ class AccountController extends Controller
         return $this->redirect('/account/index');
     }
 
-    public function register(RegisterForm $form): IActionResult
+    public function register(Registration $form): IActionResult
     {
         $this->ViewData['success'] = false;
         if (!$form->isValide()) {
