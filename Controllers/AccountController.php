@@ -13,7 +13,7 @@ use DevNet\Web\Security\ClaimsPrincipal;
 use DevNet\Web\Security\ClaimsIdentity;
 use DevNet\Web\Security\ClaimType;
 use DevNet\Web\Security\Claim;
-use Application\Models\LoginForm;
+use Application\Models\Login;
 use Application\Models\Registration;
 use Application\Models\User;
 
@@ -40,7 +40,7 @@ class AccountController extends Controller
         return $this->view();
     }
 
-    public function login(LoginForm $form): IActionResult
+    public function login(Login $form): IActionResult
     {
         $user = $this->HttpContext->User;
 

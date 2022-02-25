@@ -2,7 +2,7 @@
 
 namespace Application\Models;
 
-class LoginForm
+class Login
 {
     private string $Username;
     private string $Password;
