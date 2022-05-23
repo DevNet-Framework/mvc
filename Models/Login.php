@@ -4,23 +4,13 @@ namespace Application\Models;
 
 class Login
 {
-    private string $Username;
-    private string $Password;
-    private bool $Remember = false;
-
-    public function __get(string $name)
-    {
-        return $this->$name;
-    }
-
-    public function __set(string $name, $value)
-    {
-        $this->$name = $value;
-    }
+    public string $Username;
+    public string $Password;
+    public bool $Remember = false;
 
     public function isValide(): bool
     {
-        if (empty($this->Username) || empty($this->Password)) {
+        if (empty($this->username) || empty($this->password)) {
             return false;
         }
 
