@@ -31,7 +31,6 @@ class Program
 
             $app->useRouter();
             $app->useAuthentication();
-            $app->useAuthorization();
 
             $app->useEndpoint(function ($routes) {
                 $routes->mapRoute("default", "{controller=Home}/{action=Index}/{id?}");
