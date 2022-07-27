@@ -3,12 +3,11 @@
 namespace Application\Controllers;
 
 use DevNet\System\Linq;
-use DevNet\System\Type;
 use DevNet\System\Collections\ArrayList;
-use DevNet\Web\Controller\ActionController;
+use DevNet\Web\Controller\AbstractController;
 use DevNet\Web\Controller\IActionResult;
-use DevNet\Web\Controller\Filters\AuthorizeFilter;
-use DevNet\Web\Controller\Filters\AntiForgeryFilter;
+use DevNet\Web\Security\Antiforgery\AntiForgeryFilter;
+use DevNet\Web\Security\Authorization\AuthorizeFilter;
 use DevNet\Web\Security\ClaimsPrincipal;
 use DevNet\Web\Security\ClaimsIdentity;
 use DevNet\Web\Security\ClaimType;
@@ -22,7 +21,7 @@ use Application\Models\User;
  * This example dosen't encrypt your data, so it's not recommanded for production,
  * Use DevNet Identity Manager instead, or encrypt you own data.
  */
-class AccountController extends ActionController
+class AccountController extends AbstractController
 {
     public function __construct()
     {
@@ -56,13 +55,13 @@ class AccountController extends ActionController
             return $this->view();
         }
 
-        $json = file_get_contents(__DIR__ . '/../data.json');
-        $data = json_decode($json);
+        $data  = file_get_contents(__DIR__ . '/../data.json');
+        $users = json_decode($data);
 
-        $users = new ArrayList(Type::Object);
-        $users->addrange($data);
+        $userList = new ArrayList('object');
+        $userList->addrange($users);
 
-        $user = $users->where(fn ($user) => $user->Username == $form->Username)->first();
+        $user = $userList->where(fn ($user) => $user->Username == $form->Username)->first();
 
         if (!$user) {
             return $this->view();
@@ -90,10 +89,10 @@ class AccountController extends ActionController
             return $this->view();
         }
 
-        $data = [];
+        $users = [];
         if (file_exists(__DIR__ . '/../data.json')) {
-            $json = file_get_contents(__DIR__ . '/../data.json');
-            $data = json_decode($json, true);
+            $data = file_get_contents(__DIR__ . '/../data.json');
+            $users = json_decode($data, true);
         }
 
         $user = new User();
@@ -101,9 +100,9 @@ class AccountController extends ActionController
         $user->Username = $form->Email;
         $user->Password = $form->Password;
 
-        $data[] = $user;
-        $json = json_encode($data, JSON_PRETTY_PRINT);
-        file_put_contents(__DIR__ . '/../data.json', $json);
+        $users[] = $user;
+        $data = json_encode($users, JSON_PRETTY_PRINT);
+        file_put_contents(__DIR__ . '/../data.json', $data);
 
         $this->ViewData['success'] = true;
         return $this->view();
