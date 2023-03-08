@@ -10,7 +10,7 @@ class Login
 
     public function isValide(): bool
     {
-        if (empty($this->username) || empty($this->password)) {
+        if (empty($this->Username) || empty($this->Password)) {
             return false;
         }
 

@@ -10,7 +10,7 @@ class Registration
 
     public function isValide(): bool
     {
-        if (empty($this->name) || empty($this->Email) || empty($this->password)) {
+        if (empty($this->Name) || empty($this->Email) || empty($this->Password)) {
             return false;
         }
 
