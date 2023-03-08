@@ -6,30 +6,23 @@ use DevNet\System\Linq;
 use DevNet\System\Collections\ArrayList;
 use DevNet\Web\Controller\AbstractController;
 use DevNet\Web\Controller\IActionResult;
-use DevNet\Web\Security\Antiforgery\AntiForgeryFilter;
-use DevNet\Web\Security\Authorization\AuthorizeFilter;
-use DevNet\Web\Security\ClaimsPrincipal;
-use DevNet\Web\Security\ClaimsIdentity;
-use DevNet\Web\Security\ClaimType;
-use DevNet\Web\Security\Claim;
+use DevNet\Web\Filters\AntiForgery;
+use DevNet\Web\Filters\Authorize;
+use DevNet\Web\Security\Claims\ClaimsIdentity;
+use DevNet\Web\Security\Claims\ClaimType;
+use DevNet\Web\Security\Claims\Claim;
 use Application\Models\Login;
 use Application\Models\Registration;
 use Application\Models\User;
 
 /**
  * This is an example on how to create registration and login system using claims without SQL database.
- * This example dosen't encrypt your data, so it's not recommanded for production,
+ * This example dosen't encrypt the user password or data, so it's not recommanded for production,
  * Use DevNet Identity Manager instead, or encrypt you own data.
  */
+#[Authorize(roles: ['admin', 'member'])]
 class AccountController extends AbstractController
 {
-    public function __construct()
-    {
-        $this->filter('index', AuthorizeFilter::class);
-        $this->filter('login', AntiForgeryFilter::class);
-        $this->filter('register', AntiForgeryFilter::class);
-    }
-
     public function index(): IActionResult
     {
         $user = $this->HttpContext->User;
@@ -39,6 +32,8 @@ class AccountController extends AbstractController
         return $this->view();
     }
 
+    #[Authorize]
+    #[AntiForgery]
     public function login(Login $form): IActionResult
     {
         $user = $this->HttpContext->User;
@@ -55,13 +50,13 @@ class AccountController extends AbstractController
             return $this->view();
         }
 
-        $data  = file_get_contents(__DIR__ . '/../data.json');
-        $users = json_decode($data);
+        $json = file_get_contents(__DIR__ . '/../data.json');
+        $data = json_decode($json);
 
-        $userList = new ArrayList('object');
-        $userList->addrange($users);
+        $users = new ArrayList('object');
+        $users->addrange($data);
 
-        $user = $userList->where(fn ($user) => $user->Username == $form->Username)->first();
+        $user = $users->where(fn ($user) => $user->Username == $form->Username)->first();
 
         if (!$user) {
             return $this->view();
@@ -74,14 +69,15 @@ class AccountController extends AbstractController
         $identity = new ClaimsIdentity('AuthenticationUser');
         $identity->addClaim(new Claim(ClaimType::Name, $user->Name));
         $identity->addClaim(new Claim(ClaimType::Email, $user->Username));
-        $identity->addClaim(new Claim(ClaimType::Role, 'Memeber'));
-        $userPrincipal  = new ClaimsPrincipal($identity);
+        $identity->addClaim(new Claim(ClaimType::Role, 'member'));
         $authentication = $this->HttpContext->Authentication;
-        $authentication->SignIn($userPrincipal, $form->Remember);
+        $authentication->signIn($identity, $form->Remember);
 
         return $this->redirect('/account/index');
     }
 
+    #[Authorize]
+    #[AntiForgery]
     public function register(Registration $form): IActionResult
     {
         $this->ViewData['success'] = false;
@@ -89,10 +85,10 @@ class AccountController extends AbstractController
             return $this->view();
         }
 
-        $users = [];
+        $data = [];
         if (file_exists(__DIR__ . '/../data.json')) {
-            $data = file_get_contents(__DIR__ . '/../data.json');
-            $users = json_decode($data, true);
+            $json = file_get_contents(__DIR__ . '/../data.json');
+            $data = json_decode($json, true);
         }
 
         $user = new User();
@@ -100,9 +96,9 @@ class AccountController extends AbstractController
         $user->Username = $form->Email;
         $user->Password = $form->Password;
 
-        $users[] = $user;
-        $data = json_encode($users, JSON_PRETTY_PRINT);
-        file_put_contents(__DIR__ . '/../data.json', $data);
+        $data[] = $user;
+        $json = json_encode($data, JSON_PRETTY_PRINT);
+        file_put_contents(__DIR__ . '/../data.json', $json);
 
         $this->ViewData['success'] = true;
         return $this->view();
