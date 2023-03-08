@@ -16,8 +16,11 @@ class Program
         $builder->configureServices(function ($services) {
             $services->addMvc();
             $services->addAntiforgery();
-            $services->addAuthentication();
-            $services->addAuthorisation();
+            $services->addAuthentication(function ($builder) {
+                $builder->addCookie();
+            });
+
+            $services->addAuthorization();
         });
 
         $host = $builder->build();
@@ -33,7 +36,7 @@ class Program
             $app->useAuthentication();
 
             $app->useEndpoint(function ($routes) {
-                $routes->mapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                $routes->mapRoute("{controller=Home}/{action=Index}/{id?}");
             });
         });
     }
