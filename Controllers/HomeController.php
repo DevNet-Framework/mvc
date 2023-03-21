@@ -2,8 +2,8 @@
 
 namespace Application\Controllers;
 
+use DevNet\Web\Action\IActionResult;
 use DevNet\Web\Controller\AbstractController;
-use DevNet\Web\Controller\IActionResult;
 
 class HomeController extends AbstractController
 {
