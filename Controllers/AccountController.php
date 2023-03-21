@@ -4,10 +4,10 @@ namespace Application\Controllers;
 
 use DevNet\System\Linq;
 use DevNet\System\Collections\ArrayList;
+use DevNet\Web\Action\Filters\Antiforgery;
+use DevNet\Web\Action\Filters\Authorize;
+use DevNet\Web\Action\IActionResult;
 use DevNet\Web\Controller\AbstractController;
-use DevNet\Web\Controller\IActionResult;
-use DevNet\Web\Filters\AntiForgery;
-use DevNet\Web\Filters\Authorize;
 use DevNet\Web\Security\Claims\ClaimsIdentity;
 use DevNet\Web\Security\Claims\ClaimType;
 use DevNet\Web\Security\Claims\Claim;
@@ -33,7 +33,7 @@ class AccountController extends AbstractController
     }
 
     #[Authorize]
-    #[AntiForgery]
+    #[Antiforgery]
     public function login(Login $form): IActionResult
     {
         $user = $this->HttpContext->User;
@@ -107,7 +107,7 @@ class AccountController extends AbstractController
     public function logout(): IActionResult
     {
         $authentication = $this->HttpContext->Authentication;
-        $authentication->SignOut();
+        $authentication->signOut();
         return $this->redirect('/account/login');
     }
 }
