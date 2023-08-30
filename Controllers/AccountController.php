@@ -4,12 +4,11 @@ namespace Application\Controllers;
 
 use DevNet\System\Linq;
 use DevNet\System\Collections\ArrayList;
+use DevNet\Web\Action\ActionController;
 use DevNet\Web\Action\Filters\Antiforgery;
 use DevNet\Web\Action\Filters\Authorize;
 use DevNet\Web\Action\IActionResult;
-use DevNet\Web\Controller\AbstractController;
 use DevNet\Web\Security\Claims\ClaimsIdentity;
-use DevNet\Web\Security\Claims\ClaimType;
 use DevNet\Web\Security\Claims\Claim;
 use Application\Models\Login;
 use Application\Models\Registration;
@@ -20,20 +19,20 @@ use Application\Models\User;
  * This example dosen't encrypt the user password or data, so it's not recommanded for production,
  * Use DevNet Identity Manager instead, or encrypt you own data.
  */
-#[Authorize(roles: ['admin', 'member'])]
-class AccountController extends AbstractController
+#[Authorize(roles: ['admin', 'user'])]
+class AccountController extends ActionController
 {
     public function index(): IActionResult
     {
         $user = $this->HttpContext->User;
-        $claim = $user->findClaim(fn ($claim) => $claim->Type == ClaimType::Name);
+        $claim = $user->findClaim(fn ($claim) => $claim->Type == 'Name');
         $name = $claim ? $claim->Value : null;
         $this->ViewData['Name'] = $name;
         return $this->view();
     }
 
-    #[Authorize]
     #[Antiforgery]
+    #[Authorize('Anonymous')]
     public function login(Login $form): IActionResult
     {
         $user = $this->HttpContext->User;
@@ -67,17 +66,17 @@ class AccountController extends AbstractController
         }
 
         $identity = new ClaimsIdentity('AuthenticationUser');
-        $identity->addClaim(new Claim(ClaimType::Name, $user->Name));
-        $identity->addClaim(new Claim(ClaimType::Email, $user->Username));
-        $identity->addClaim(new Claim(ClaimType::Role, 'member'));
+        $identity->addClaim(new Claim('Name', $user->Name));
+        $identity->addClaim(new Claim('Email', $user->Username));
+        $identity->addClaim(new Claim('Role', 'user'));
         $authentication = $this->HttpContext->Authentication;
         $authentication->signIn($identity, $form->Remember);
 
         return $this->redirect('/account/index');
     }
 
-    #[Authorize]
     #[AntiForgery]
+    #[Authorize('Anonymous')]
     public function register(Registration $form): IActionResult
     {
         $this->ViewData['success'] = false;
