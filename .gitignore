@@ -1,5 +1,3 @@
-.idea/
-.vscode/
-/vendor/
+vendor/
 composer.lock
 data.json

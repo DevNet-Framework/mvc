@@ -10,7 +10,7 @@
                <a class="nav-link text-dark" aria-current="page" href="/">Home</a>
             </li>
             <li class="nav-item">
-               <a class="nav-link text-dark" href="/home/about">About</a>
+               <a class="nav-link text-dark" href="/about">About</a>
             </li>
          </ul>
          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -19,10 +19,19 @@
                   Account
                </a>
                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="/account">My Account</a></li>
-                  <li><a class="dropdown-item" href="/account/register">Register</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="/account/logout">Log Out</a></li>
+                  <? if ($this->User->isAuthenticated()) : ?>
+                     <li><a class="dropdown-item" href="/account">My Account</a></li>
+                     <li>
+                        <hr class="dropdown-divider">
+                     </li>
+                     <li><a class="dropdown-item" href="/logout">Log Out</a></li>
+                  <? else : ?>
+                     <li><a class="dropdown-item" href="/login">Login</a></li>
+                     <li>
+                        <hr class="dropdown-divider">
+                     </li>
+                     <li><a class="dropdown-item" href="/register">Register</a></li>
+                  <? endif ?>
                </ul>
             </li>
          </ul>

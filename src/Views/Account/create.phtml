@@ -1,0 +1,21 @@
+<? $this->layout('Shared/layout') ?>
+
+<? $this->ViewData['Title'] = 'Registration' ?>
+
+<div class="container d-flex flex-row align-items-center justify-content-center" style="height: 500px;">
+   <div class="alert alert-secondary bg-white mx-auto shadow text-center" role="alert" style="max-width: 600px">
+      <header class="d-flex flex-row">
+         <div class="flex-grow-1">
+            <h4 class="text-info">Registration Successful</h4>
+         </div>
+         <div>
+            <a class="btn btn-close" aria-label="Close" href="/register"></a>
+         </div>
+      </header>
+      <hr>
+      <p>
+         Your account has been successfully created, You may now sign in with your Username and Password.
+      </p>
+      <a class="btn btn-info text-white" href="/login">Sign In</a>
+   </div>
+</div>

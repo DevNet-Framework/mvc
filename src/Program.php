@@ -11,32 +11,26 @@ class Program
     public static function main(array $args = [])
     {
         $builder = WebHost::createDefaultBuilder($args);
-        $configuration = $builder->ConfigBuilder->build();
-
-        $builder->configureServices(function ($services) {
-            $services->addMvc();
-            $services->addAntiforgery();
+        $builder->register(function ($services) {
             $services->addAuthentication(function ($builder) {
                 $builder->addCookie();
             });
 
             $services->addAuthorization();
+            $services->addAntiforgery();
         });
 
         $host = $builder->build();
-
-        $host->start(function ($app) use ($configuration) {
-            if ($configuration->getValue('environment') == 'development') {
-                $app->UseExceptionHandler();
-            } else {
-                $app->UseExceptionHandler("/home/error");
+        $host->start(function ($app) {
+            if (!$app->Environment->isDevelopment()) {
+                $app->UseExceptionHandler("/error");
             }
 
             $app->useRouter();
             $app->useAuthentication();
 
             $app->useEndpoint(function ($routes) {
-                $routes->mapRoute("{controller=Home}/{action=Index}/{id?}");
+                $routes->mapControllers();
             });
         });
     }

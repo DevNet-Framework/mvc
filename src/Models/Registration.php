@@ -8,7 +8,7 @@ class Registration
     public string $Email;
     public string $Password;
 
-    public function isValide(): bool
+    public function isValid(): bool
     {
         if (empty($this->Name) || empty($this->Email) || empty($this->Password)) {
             return false;

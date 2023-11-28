@@ -1,0 +1,32 @@
+<? $this->layout('Shared/layout') ?>
+
+<? $this->ViewData['Title'] = 'Registration' ?>
+
+<div class="container d-flex flex-row align-items-center justify-content-center" style="height: 500px;">
+   <div class="card flex-grow-1 p-4 shadow" style="max-width: 400px">
+      <div class="card-body">
+         <form method="post" action="/account/create">
+            <h2 class="text-center text-info">Register</h2>
+            <div class="mb-3">
+               <label for="InputName" class="form-label">Full name</label>
+               <input type="text" class="form-control" id="InputName" name="Name" required>
+            </div>
+            <div class="mb-3">
+               <label for="InputEmail" class="form-label">Email address</label>
+               <input type="email" class="form-control" id="InputEmail" name="Email" required>
+            </div>
+            <div class="mb-3">
+               <label for="InputPassword" class="form-label">Password</label>
+               <input type="password" class="form-control" id="InputPassword" name="Password" pattern="^(?=.*?[A-Z])(?=.*?[0-9]).{8,}$" required>
+               <div class="text-center">
+                  <small class="text-muted">At least 8 characters, 1 capital letter and 1 digit</small>
+               </div>
+            </div>
+            <div class="d-grid gap-2">
+               <button type="submit" class="btn btn-info text-white">Register</button>
+            </div>
+            <input type="hidden" name="X-CSRF-TOKEN" value="<?= $this->Antiforgery->getToken() ?>" />
+         </form>
+      </div>
+   </div>
+</div>

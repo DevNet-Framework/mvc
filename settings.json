@@ -1,6 +1,11 @@
 {
-    "database": {
-        "connection": "//username:password@127.0.0.1/database/?charset=utf-8"
+    "Logging": {
+        "LogLevel": {
+            "Default": "Information"
+        }
     },
-    "environment": "development"
+    "Database": {
+        "ProviderType": "DevNet\\Entity\\PgSql\\PgSqlDataProvider",
+        "ConnectionString": "host=localhost;database=dbname;user=username;password=password"
+    }
 }

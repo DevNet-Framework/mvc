@@ -1,5 +1,5 @@
 # DevNet MVC Web Application Template
-This package is a Model-View-Controller web application template of DevNet Framewark.
+This package is a DevNet Model-View-Controller web application template.
 
 ## Requirements
 - [PHP](https://www.php.net/) version 8.0 or higher
