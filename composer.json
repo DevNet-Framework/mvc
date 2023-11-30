@@ -4,8 +4,5 @@
     "type": "project",
     "license": "MIT",
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "require": {
-        "devnet/web": "1.0.*"
-    }
+    "prefer-stable": true
 }
