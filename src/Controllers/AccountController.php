@@ -2,21 +2,21 @@
 
 namespace Application\Controllers;
 
-use DevNet\System\Linq;
-use DevNet\System\Collections\ArrayList;
-use DevNet\Web\Endpoint\Controller;
-use DevNet\Web\Endpoint\IActionResult;
-use DevNet\Web\Endpoint\Route;
-use DevNet\Web\Security\Claims\ClaimsIdentity;
-use DevNet\Web\Security\Claims\Claim;
-use DevNet\Web\Security\Authentication\AuthenticationScheme;
-use DevNet\Web\Security\Authentication\IAuthentication;
-use DevNet\Web\Security\Authorization\Authorize;
-use DevNet\Web\Security\Tokens\Csrf\Validate;
-use DevNet\Web\Http\HttpContext;
 use Application\Models\Login;
 use Application\Models\Registration;
 use Application\Models\User;
+use DevNet\Core\Endpoint\Controller;
+use DevNet\Core\Endpoint\IActionResult;
+use DevNet\Core\Endpoint\Filters\Authorize;
+use DevNet\Core\Endpoint\Filters\ValidateAntiForgery;
+use DevNet\Core\Endpoint\Route;
+use DevNet\Http\Message\HttpContext;
+use DevNet\Security\Claims\ClaimsIdentity;
+use DevNet\Security\Claims\Claim;
+use DevNet\Security\Authentication\AuthenticationScheme;
+use DevNet\Security\Authentication\IAuthentication;
+use DevNet\System\Collections\ArrayList;
+use DevNet\System\Linq;
 
 class AccountController extends Controller
 {
@@ -45,7 +45,7 @@ class AccountController extends Controller
         return $this->view();
     }
 
-    #[Validate]
+    #[ValidateAntiForgery]
     #[Route(path: '/account/create', method: 'POST')]
     public function create(Registration $form): IActionResult
     {
@@ -78,7 +78,7 @@ class AccountController extends Controller
         return $this->view();
     }
 
-    #[Validate]
+    #[ValidateAntiForgery]
     #[Route(path: '/account/authenticate', method: 'POST')]
     public function authenticate(Login $form): IActionResult
     {

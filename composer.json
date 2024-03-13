@@ -1,8 +1,11 @@
 {
-    "name": "devnet/mvc-template",
-    "description": "DevNet Web Application (Model-View-Controller)",
+    "name": "devnet/mvc",
+    "description": "MVC Web Application",
     "type": "project",
     "license": "MIT",
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "require": {
+        "devnet/core": "1.1.*"
+    }
 }
