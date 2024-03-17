@@ -4,9 +4,9 @@ use DevNet\System\Runtime\Launcher;
 
 $root = dirname(__FILE__, 2);
 
-// Loads local devnet core host if exist
-if (is_file($root . '/vendor/devnet/core/host/corehost.php')) {
-    require $root . '/vendor/devnet/core/host/corehost.php';
+// Loads local devnet host if exist
+if (is_file($root . '/vendor/devnet/system/host.php')) {
+    require $root . '/vendor/devnet/system/host.php';
 }
 
 // Gets the path environment variable
@@ -16,10 +16,10 @@ if (PHP_OS_FAMILY == 'Windows') {
     $paths = explode(':', getenv('PATH'));
 }
 
-// Search for the global devnet core host
+// Search for the global devnet host
 foreach ($paths as $path) {
-    if (is_file($path . '/../devnet/core/host/corehost.php')) {
-        require $path . '/../devnet/core/host/corehost.php';
+    if (is_file($path . '/../devnet/system/host.php')) {
+        require $path . '/../devnet/system/host.php';
         break;
     }
 }
