@@ -1,34 +1,23 @@
 <?php
 
-use DevNet\System\Runtime\Launcher;
-
 $root = dirname(__FILE__, 2);
 
-// Loads local devnet host if exist
+// Load the devnet host, the local one or the global one
 if (is_file($root . '/vendor/devnet/system/host.php')) {
     require $root . '/vendor/devnet/system/host.php';
-}
-
-// Gets the path environment variable
-if (PHP_OS_FAMILY == 'Windows') {
-    $paths = explode(';', getenv('path'));
 } else {
-    $paths = explode(':', getenv('PATH'));
-}
+    // Get the path environment variable
+    if (PHP_OS_FAMILY == 'Windows') {
+        $paths = explode(';', getenv('path'));
+    } else {
+        $paths = explode(':', getenv('PATH'));
+    }
 
-// Search for the global devnet host
-foreach ($paths as $path) {
-    if (is_file($path . '/../devnet/system/host.php')) {
-        require $path . '/../devnet/system/host.php';
-        break;
+    // Search for the global devnet host
+    foreach ($paths as $path) {
+        if (is_file($path . '/../devnet/system/host.php')) {
+            require $path . '/../devnet/system/host.php';
+            break;
+        }
     }
 }
-
-
-// Gets the console arguments without command name
-$args = $GLOBALS['argv'] ?? [];
-array_shift($args);
-
-// Initialize and launch the application
-$launcher = Launcher::initialize($root . '/devnet.proj');
-$launcher->launch($args);
